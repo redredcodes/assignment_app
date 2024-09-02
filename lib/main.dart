@@ -30,9 +30,15 @@ class Home extends StatelessWidget {
           } else if (constraints.maxWidth > 641 &&
               constraints.maxWidth < 1008) {
             // UI for Tablet...
-            return TabletLayout();
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 60, horizontal: 70),
+              child: TabletLayout(),
+            );
           } else {
-            return DesktopLayout();
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 60, horizontal: 70),
+              child: DesktopLayout(),
+            );
           }
         },
       ),
@@ -67,7 +73,7 @@ class MobileLayout extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 100),
+            SizedBox(height: 150),
             Text('FLUTTER WEB. \nTHE BASICS',
                 style: TextStyle(
                     fontWeight: FontWeight.w900, fontSize: 40, height: 1),
@@ -85,7 +91,7 @@ class MobileLayout extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 100,
+              height: 80,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -98,7 +104,7 @@ class MobileLayout extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w900),
                   ),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightGreen[500],
+                      backgroundColor: Colors.lightGreenAccent[400],
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5))),
@@ -120,7 +126,7 @@ class MobileLayout extends StatelessWidget {
                 children: [
                   DrawerHeader(
                       decoration: BoxDecoration(
-                        color: Colors.lightGreen[500],
+                        color: Colors.lightGreenAccent[400],
                       ),
                       // padding: EdgeInsets.symmetric(vertical: 0, horizontal: 80),
                       child: const SizedBox(
@@ -247,13 +253,17 @@ class TabletLayout extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightGreen[500],
+                    backgroundColor: Colors.lightGreenAccent[400],
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5))),
-                child: Text(
-                  'Join Course',
-                  style: TextStyle(fontWeight: FontWeight.w900),
+                child: Container( width: 100,
+                  child: Center(
+                    child: Text(
+                      'Join Course',
+                      style: TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                  ),
                 ),
               )
             ],
@@ -274,9 +284,10 @@ class DesktopLayout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
-          padding: EdgeInsets.all(70),
+          padding: EdgeInsets.symmetric(vertical: 60, horizontal: 65),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'HUMMING \nBIRD .',
@@ -309,15 +320,15 @@ class DesktopLayout extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(70),
-        child: Row(
-          children: [
-            // 1st Column
-            const Expanded(
-              child: Column(
+        child: Expanded(
+          child: Row(
+            children: [
+              // 1st Column
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   Text(
                     'FLUTTER WEB. \nTHE BASICS',
@@ -340,17 +351,16 @@ class DesktopLayout extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            Expanded(
-              child: Column( crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: SizedBox( width: 200,
+              Expanded(
+                child: Column( crossAxisAlignment: CrossAxisAlignment.end,
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 180),
+                    SizedBox( width: 200,
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightGreen[500],
+                            backgroundColor: Colors.lightGreenAccent[400],
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5))),
@@ -360,11 +370,11 @@ class DesktopLayout extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
