@@ -1,8 +1,8 @@
 import 'package:assignment_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class WaterTrackerApp extends StatelessWidget {
-  const WaterTrackerApp({super.key});
+class CartApp extends StatelessWidget {
+  const CartApp({super.key});
 
   @override
   Widget build(BuildContext context) {

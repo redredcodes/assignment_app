@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,163 +9,514 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // the TE controller
-  final TextEditingController _noOfGlassesTE = TextEditingController(text: '1');
-
-  // list that will hold the infos
-  List<WaterTrack> waterTrackList = [];
-
   @override
   Widget build(BuildContext context) {
+
+    snackBar(message, context){
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message))
+      );
+    }
+
+    int _counter = 1;
+
+    // initial quantities of the products
+    int pulloverCount = 1;
+    int tShirtCount = 1;
+    int sportsDressCount = 1;
+
+    // unit price for each product
+    final int pulloverPrice = 51;
+    final int tShirtPrice = 30;
+    final int sportsDressPrice = 43;
+
+    // the total amount
+
+    void _incrementCounter() {
+      setState(() {
+        _counter++;
+      });
+    }
+
+    void _decrementCounter() {
+      setState(() {
+        _counter--;
+      });
+    }
+
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text('Water Tracker'),
-        centerTitle: true,
+        backgroundColor: Colors.grey[200],
+        title: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            'My Bag',
+            style: GoogleFonts.bebasNeue(
+              fontWeight: FontWeight.w500,
+              fontSize: 40,
+            ),
+          ),
+        ),
+        centerTitle: false,
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // the counter part
-          _buildWaterTrackCounter(),
-          const SizedBox(
-            height: 19,
+          Expanded(
+            child: ListView(
+              children: [
+                // pullover
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: 120,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                    child: Row(
+                      children: [
+                        // t-shirt image
+                        Image.network(
+                          'https://images.rawpixel.com/image_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA5L3JtMzYzLWIwOC1tb2NrdXAtMDEtam9iMTAwMy1sOGVobTlyYy5qcGc.jpg',
+                          height: 80,
+                          width: 80,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Product Name
+                            Text(
+                              'Pullover',
+                              style: GoogleFonts.robotoCondensed(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+
+                            // color and size...
+                            Row(
+                              children: [
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Color: ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                        children: [
+                                          TextSpan(
+                                              text: 'Black',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12))
+                                        ])),
+                                SizedBox(width: 10),
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Size: ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                        children: [
+                                          TextSpan(
+                                              text: 'L',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12))
+                                        ])),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 7,
+                            ),
+
+                            // +, - buttons
+                            Row(
+                              children: [
+                                // - button
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _decrementCounter();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    padding: const EdgeInsets.all(5),
+                                    backgroundColor: Colors.lightGreenAccent,
+                                    foregroundColor: Colors.black,
+                                  ),
+                                  child: const Icon(Icons.remove),
+                                ),
+                                Text(_counter.toString()),
+                                // + button
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _incrementCounter();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      shape: const CircleBorder(),
+                                      padding: const EdgeInsets.all(5),
+                                      backgroundColor: Colors.lightGreenAccent,
+                                      foregroundColor: Colors.black),
+                                  child: const Icon(Icons.add),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        // the more button and price tag
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.more_vert),
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              // product price
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '\$$pulloverPrice',
+                                    style: GoogleFonts.bebasNeue(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+
+                // t-Shirt
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: 120,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 10,
+                              blurRadius: 15,
+                              offset: Offset(0, 7))
+                        ]),
+                    child: Row(
+                      children: [
+                        // t-shirt image
+                        Image.network(
+                          'https://images.rawpixel.com/image_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA5L3JtMzYzLWIwOC1tb2NrdXAtMDEtam9iMTAwMy1sOGVobTlyYy5qcGc.jpg',
+                          height: 80,
+                          width: 80,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Product Name
+                            Text(
+                              'T-Shirt',
+                              style: GoogleFonts.robotoCondensed(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+
+                            // color and size...
+                            Row(
+                              children: [
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Color: ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                        children: [
+                                          TextSpan(
+                                              text: 'Black',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12))
+                                        ])),
+                                SizedBox(width: 10),
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Size: ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                        children: [
+                                          TextSpan(
+                                              text: 'L',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12))
+                                        ])),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 7,
+                            ),
+
+                            // +, - buttons
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _decrementCounter();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    padding: const EdgeInsets.all(5),
+                                    backgroundColor: Colors.lightGreenAccent,
+                                    foregroundColor: Colors.black,
+                                  ),
+                                  child: const Icon(Icons.remove),
+                                ),
+                                Text(_counter.toString()),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _incrementCounter();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      shape: const CircleBorder(),
+                                      padding: const EdgeInsets.all(5),
+                                      backgroundColor: Colors.lightGreenAccent,
+                                      foregroundColor: Colors.black),
+                                  child: const Icon(Icons.add),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        // the more button and price tag
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.more_vert),
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '\$$tShirtPrice',
+                                    style: GoogleFonts.bebasNeue(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+
+                // sports dress
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: 120,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 10,
+                              blurRadius: 15,
+                              offset: Offset(0, 7))
+                        ]),
+                    child: Row(
+                      children: [
+                        // t-shirt image
+                        Image.network(
+                          'https://images.rawpixel.com/image_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA5L3JtMzYzLWIwOC1tb2NrdXAtMDEtam9iMTAwMy1sOGVobTlyYy5qcGc.jpg',
+                          height: 80,
+                          width: 80,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Product Name
+                            Text(
+                              'Sport Dress',
+                              style: GoogleFonts.robotoCondensed(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+
+                            // color and size...
+                            Row(
+                              children: [
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Color: ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                        children: [
+                                          TextSpan(
+                                              text: 'Black',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12))
+                                        ])),
+                                SizedBox(width: 10),
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Size: ',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                        children: [
+                                          TextSpan(
+                                              text: 'L',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12))
+                                        ])),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 7,
+                            ),
+
+                            // +, - buttons
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _decrementCounter();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    padding: const EdgeInsets.all(5),
+                                    backgroundColor: Colors.lightGreenAccent,
+                                    foregroundColor: Colors.black,
+                                  ),
+                                  child: const Icon(Icons.remove),
+                                ),
+                                Text(_counter.toString()),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _incrementCounter();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      shape: const CircleBorder(),
+                                      padding: const EdgeInsets.all(5),
+                                      backgroundColor: Colors.lightGreenAccent,
+                                      foregroundColor: Colors.black),
+                                  child: const Icon(Icons.add),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+                        // the more button and price tag
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.more_vert),
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  // price
+                                  Text(
+                                    '\$$sportsDressPrice',
+                                    style: GoogleFonts.bebasNeue(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
 
-          // the tracking records...
-          _buildWaterTrackerListView()
+          // total amount
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Total Amount', style: TextStyle(color: Colors.grey),),
+                Text(
+                  '124\$',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+          ),
+
+          // checkout button
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  snackBar('Congratulations! You have checked out!', context);
+                },
+                child: Text('Checkout'),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white),
+              ),
+            ),
+          )
         ],
       ),
     );
   }
-
-  Widget _buildWaterTrackerListView() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              final WaterTrack waterTrack = waterTrackList[index];
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blue[200],
-                  child: const Icon(Icons.water_drop_outlined, color: Colors.white,),
-                ),
-                title: Text(
-                    '${waterTrack.dateTime.hour}:${waterTrack.dateTime.minute}'),
-                subtitle: Text(
-                    '${waterTrack.dateTime.day}/${waterTrack.dateTime.month}/${waterTrack.dateTime.year}'),
-                trailing: IconButton(
-                    onPressed: () {
-                      _deleteButton(index);
-                    },
-                    icon: const Icon(Icons.delete_outline)),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: waterTrackList.length),
-      ),
-    );
-  }
-
-  // the counter part (main)
-  Widget _buildWaterTrackCounter() {
-    return Column(
-      children: [
-        Text(
-          getTotalGlassCount().toString(),
-          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        const Text('Glass/s'),
-        const SizedBox(
-          height: 16,
-        ),
-        // textField
-        SizedBox(
-          width: 65,
-          child: TextField(
-            controller: _noOfGlassesTE,
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.blue))),
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-
-        // the add button
-        ElevatedButton(
-          onPressed: () {
-            _addNewRecord();
-          },
-          style: ElevatedButton.styleFrom(
-              side: const BorderSide(color: Colors.black, width: 1),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              //const CircleBorder(),
-              padding: const EdgeInsets.all(10),
-              backgroundColor: Colors.blue[200],
-              foregroundColor: Colors.black),
-          child: const Icon(Icons.add),
-        ),
-      ],
-    );
-  }
-
-  // the getter function
-  int getTotalGlassCount() {
-    int counter = 0;
-    for (WaterTrack t in waterTrackList) {
-      counter += t.noOfGlasses;
-    }
-    return counter;
-  }
-
-  // the add button functions
-  void _addNewRecord() {
-    if (_noOfGlassesTE.text.isEmpty) {
-      _noOfGlassesTE.text = '1';
-    }
-    final int noOfGlasses = int.tryParse(_noOfGlassesTE.text) ?? 1;
-
-    // We need values to add to our list now but what value do we add? We will add the values below...
-    WaterTrack waterTrack =
-        WaterTrack(noOfGlasses: noOfGlasses, dateTime: DateTime.now());
-
-    // add this to the track list...
-    waterTrackList.add(waterTrack);
-    setState(() {});
-    // didn't end yet, to see the results, we need a getter type of function
-  }
-
-  void _deleteButton(index) {
-    // we will be deleting what? something from the water track list
-    waterTrackList.removeAt(index);
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    _noOfGlassesTE.dispose();
-    super.dispose();
-  }
 }
-
-// Data's we need to collect and show
-// 2 things that we need- 1. How many glasses drank & 2. When it was drank
-class WaterTrack {
-  final int noOfGlasses;
-  final DateTime dateTime;
-
-  WaterTrack({required this.noOfGlasses, required this.dateTime});
-}
-
-
